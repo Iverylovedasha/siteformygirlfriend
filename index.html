@@ -3,234 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для Даши ❤️ 6 месяцев</title>
+    <title>Даше ❤️ 6 месяцев</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        :root {
+            --pink-soft: #ffe4ec;
+            --pink-mid: #ffc2d4;
+            --pink-deep: #ff8fab;
+            --pink-dark: #e86a92;
+            --rose-text: #a64d6b;
+            --rose-head: #d15b83;
+            --paper: #fff7fa;
+            --paper-edge: #f3d6e0;
+        }
+
         body {
-            font-family: 'Segoe UI', 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #fff;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background:
+                radial-gradient(circle at 20% 15%, #ffe9f1 0%, transparent 55%),
+                radial-gradient(circle at 85% 85%, #ffd9e6 0%, transparent 50%),
+                linear-gradient(135deg, #ffeef5 0%, #ffdce8 45%, #ffcfe0 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 30px 15px;
             overflow-x: hidden;
-            position: relative;
         }
 
-        .hearts-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0; overflow: hidden;
-        }
-        .heart-float {
-            position: absolute; color: rgba(255, 107, 129, 0.15);
-            font-size: 20px; animation: floatUp linear infinite; bottom: -50px;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-
+        /* ---------- Экран входа ---------- */
         #intro-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 100; transition: opacity 1s ease, visibility 1s ease;
+            position: fixed; inset: 0;
+            background: linear-gradient(135deg, #ffe4ec, #ffc2d4);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 100;
+            transition: opacity 0.9s ease, visibility 0.9s ease;
         }
         #intro-screen.hidden { opacity: 0; visibility: hidden; }
 
         .intro-heart {
-            font-size: 80px; animation: beat 1.5s ease-in-out infinite;
-            cursor: pointer; filter: drop-shadow(0 0 30px rgba(255, 107, 129, 0.6));
+            font-size: 80px;
+            animation: beat 1.5s ease-in-out infinite;
+            cursor: pointer;
+            filter: drop-shadow(0 8px 20px rgba(232, 106, 146, 0.4));
         }
         @keyframes beat {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.15); }
         }
         .intro-text {
-            margin-top: 30px; font-size: 1.2rem; color: #ffb8c6;
-            letter-spacing: 2px; text-align: center; padding: 0 20px;
+            margin-top: 28px; font-size: 1.25rem;
+            color: var(--rose-head); letter-spacing: 3px;
+            font-style: italic;
         }
         .click-hint {
-            margin-top: 15px; font-size: 0.9rem; color: #8899aa;
+            margin-top: 14px; font-size: 0.85rem;
+            color: var(--rose-text); opacity: 0.7;
             animation: pulse 2s infinite;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            letter-spacing: 1px;
         }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
 
-        .main-content {
-            position: relative; z-index: 10; text-align: center;
-            padding: 60px 20px 80px; max-width: 800px; width: 100%;
-            opacity: 0; transition: opacity 1.5s ease 0.5s;
+        /* ---------- Книга ---------- */
+        .book-wrap {
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease 0.4s, transform 1s ease 0.4s;
         }
-        .main-content.visible { opacity: 1; }
+        .book-wrap.visible { opacity: 1; transform: translateY(0); }
 
-        .anniversary-badge {
-            display: inline-block;
-            background: rgba(255, 107, 129, 0.2);
-            border: 1px solid rgba(255, 107, 129, 0.4);
-            padding: 8px 24px; border-radius: 50px; font-size: 0.9rem;
-            letter-spacing: 3px; text-transform: uppercase; color: #ffb8c6;
-            margin-bottom: 20px;
-        }
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 300; letter-spacing: 4px; margin-bottom: 10px;
-            background: linear-gradient(45deg, #ff6b81, #ffb8c6, #ff6b81);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .name {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            color: #ffb8c6; margin-bottom: 40px; font-style: italic;
+        .book {
+            position: relative;
+            display: flex;
+            width: min(92vw, 900px);
+            aspect-ratio: 2 / 1;      /* две квадратные страницы рядом */
+            filter: drop-shadow(0 25px 50px rgba(200, 100, 140, 0.28));
+            perspective: 2000px;
         }
 
-        .confession-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 107, 129, 0.3);
-            border-radius: 20px; padding: 40px 30px; margin: 30px 0;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .confession-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(255, 107, 129, 0.15);
-        }
-        .confession-placeholder {
-            font-size: 1.1rem; line-height: 1.8; color: #c0c8d4;
-            font-style: italic; min-height: 100px;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center;
-        }
-        .confession-text {
-            font-size: 1.15rem; line-height: 1.9; color: #e8e8f0;
-            text-align: left; white-space: pre-wrap;
+        /* Корешок */
+        .book::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; bottom: 0;
+            width: 14px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg,
+                rgba(200, 120, 150, 0.35), rgba(255, 255, 255, 0), rgba(200, 120, 150, 0.35));
+            z-index: 5;
+            pointer-events: none;
         }
 
-        .divider {
-            width: 60px; height: 1px; background: rgba(255, 107, 129, 0.5);
-            margin: 40px auto;
-        }
-
-        /* ======= БЛОКИ С ИСТОРИЯМИ ======= */
-        .blocks-section {
-            margin-top: 20px;
+        /* ---------- Страницы ---------- */
+        .page {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            background: var(--paper);
+            padding: clamp(18px, 3.5vw, 38px);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 40px rgba(255, 190, 210, 0.25);
         }
-        .blocks-title {
-            font-size: 1.3rem;
-            letter-spacing: 3px;
-            color: #ffb8c6;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            font-weight: 300;
+        .page.left {
+            border-radius: 14px 0 0 14px;
+            box-shadow: inset -18px 0 30px -18px rgba(190, 110, 140, 0.25),
+                        inset 0 0 40px rgba(255, 190, 210, 0.25);
         }
-
-        .block {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 107, 129, 0.25);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            text-align: left;
-        }
-        .block.open {
-            border-color: rgba(255, 107, 129, 0.6);
-            box-shadow: 0 10px 30px rgba(255, 107, 129, 0.15);
+        .page.right {
+            border-radius: 0 14px 14px 0;
+            box-shadow: inset 18px 0 30px -18px rgba(190, 110, 140, 0.25),
+                        inset 0 0 40px rgba(255, 190, 210, 0.25);
         }
 
-        .block-btn {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #e8e8f0;
-            font-size: 1.05rem;
-            font-family: inherit;
-            padding: 20px 22px;
-            cursor: pointer;
+        /* Тонкая рамка внутри страницы */
+        .page::after {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(232, 106, 146, 0.18);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        /* Красивые скроллбары */
+        .page::-webkit-scrollbar { width: 6px; }
+        .page::-webkit-scrollbar-track { background: transparent; }
+        .page::-webkit-scrollbar-thumb {
+            background: var(--pink-mid); border-radius: 3px;
+        }
+
+        /* Заголовки страниц */
+        .page-num {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: var(--pink-dark);
+            opacity: 0.6;
+            text-align: center;
+            margin-top: auto;
+            padding-top: 12px;
+        }
+
+        .page-inner {
+            flex: 1;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            text-align: left;
-            transition: background 0.3s ease, color 0.3s ease;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
         }
-        .block-btn:hover {
-            background: rgba(255, 107, 129, 0.1);
-            color: #ffb8c6;
-        }
-        .block.open .block-btn {
-            color: #ff6b81;
-            background: rgba(255, 107, 129, 0.08);
-        }
-        .block-arrow {
-            font-size: 0.8rem;
-            transition: transform 0.4s ease;
-            color: #ff6b81;
-            margin-left: 15px;
-            flex-shrink: 0;
-        }
-        .block.open .block-arrow { transform: rotate(180deg); }
 
-        .block-content {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.45s ease;
+        /* ---------- Титул ---------- */
+        .title-badge {
+            display: inline-block;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--pink-dark);
+            border: 1px solid var(--pink-mid);
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin: 0 auto 18px;
         }
-        .block-content > div {
-            overflow: hidden;
+        .title-name {
+            font-size: clamp(2.2rem, 7vw, 3.8rem);
+            color: var(--rose-head);
+            letter-spacing: 3px;
+            line-height: 1.1;
+            margin-bottom: 10px;
         }
-        .block.open .block-content {
-            grid-template-rows: 1fr;
+        .title-sub {
+            font-style: italic;
+            color: var(--rose-text);
+            font-size: clamp(0.95rem, 2.4vw, 1.2rem);
+            line-height: 1.6;
         }
-        .block-content-inner {
-            padding: 0 22px 22px 22px;
-            color: #c0c8d4;
+        .title-heart {
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin: 22px 0 6px;
+            animation: beat 2s ease-in-out infinite;
+        }
+
+        /* ---------- Признание ---------- */
+        .confession-placeholder {
+            font-style: italic;
+            color: var(--rose-text);
+            opacity: 0.75;
+            font-size: clamp(0.85rem, 2.2vw, 1rem);
             line-height: 1.8;
-            font-size: 1rem;
-            border-top: 1px solid rgba(255, 107, 129, 0.15);
-            padding-top: 18px;
-            margin: 0 22px 22px 22px;
-            padding-left: 0;
-            padding-right: 0;
+        }
+        .confession-text {
             white-space: pre-wrap;
+            color: #6d3a4d;
+            font-size: clamp(0.85rem, 2.1vw, 1rem);
+            line-height: 1.85;
+            text-align: left;
+        }
+
+        /* ---------- Страницы историй ---------- */
+        .story-head {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--pink-dark);
+            margin-bottom: 14px;
+        }
+        .story-title {
+            font-size: clamp(1.15rem, 3.2vw, 1.6rem);
+            color: var(--rose-head);
+            margin-bottom: 16px;
+            line-height: 1.25;
+        }
+        .story-text {
+            white-space: pre-wrap;
+            color: #6d3a4d;
+            font-size: clamp(0.78rem, 1.9vw, 0.95rem);
+            line-height: 1.8;
+            text-align: left;
+        }
+        .story-flourish {
+            width: 40px; height: 1px;
+            background: var(--pink-mid);
+            margin: 0 auto 18px;
+        }
+
+        /* ---------- Навигация ---------- */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            margin-top: 26px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .nav-btn {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            border: 1px solid var(--pink-deep);
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--pink-dark);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: var(--pink-deep);
+            color: #fff;
+            transform: scale(1.08);
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+        .nav-counter {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--rose-text);
+            min-width: 60px;
+            text-align: center;
         }
 
         .music-credit {
-            font-size: 0.85rem; color: #667788; margin-top: 30px;
-            letter-spacing: 1px;
+            margin-top: 18px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            color: var(--rose-text);
+            opacity: 0.65;
         }
-        .music-credit span { color: #ffb8c6; }
+        .music-credit span { color: var(--pink-dark); }
 
-        .love-btn {
-            display: inline-block; margin-top: 20px;
-            padding: 12px 30px; background: transparent;
-            border: 1px solid #ff6b81; color: #ff6b81;
-            border-radius: 50px; font-size: 1rem;
-            cursor: pointer; transition: all 0.3s ease;
-            letter-spacing: 2px;
+        /* ---------- Анимация перелистывания ---------- */
+        .page { transition: opacity 0.35s ease, transform 0.35s ease; }
+        .page.turn-out {
+            opacity: 0;
+            transform: scale(0.97);
         }
-        .love-btn:hover { background: #ff6b81; color: #1a1a2e; }
 
-        @media (max-width: 600px) {
-            .confession-box { padding: 25px 18px; }
-            h1 { letter-spacing: 2px; }
-            .block-btn { padding: 18px 16px; font-size: 0.95rem; }
-            .block-content-inner { margin: 0 16px 20px 16px; font-size: 0.95rem; }
+        /* ---------- Мобильная адаптация ---------- */
+        @media (max-width: 640px) {
+            .book {
+                aspect-ratio: auto;
+                flex-direction: column;
+                width: min(94vw, 460px);
+                gap: 10px;
+                filter: drop-shadow(0 15px 30px rgba(200, 100, 140, 0.25));
+            }
+            .book::before { display: none; }
+            .page {
+                width: 100%;
+                aspect-ratio: 1 / 1;
+                border-radius: 14px !important;
+                box-shadow: inset 0 0 40px rgba(255, 190, 210, 0.25) !important;
+            }
+            /* На мобилке показываем одну страницу за раз */
+            .page.hidden-mobile { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hearts-bg" id="heartsBg"></div>
-
+    <!-- Экран входа -->
     <div id="intro-screen">
-        <div class="intro-heart" id="startBtn">❤️</div>
+        <div class="intro-heart" id="startBtn">💌</div>
         <div class="intro-text">Для Даши</div>
-        <div class="click-hint">нажми на сердце</div>
+        <div class="click-hint">нажми на конверт</div>
     </div>
 
     <!-- Песня -->
@@ -238,35 +324,42 @@
         <source src="velosiped.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="main-content" id="mainContent">
-        <div class="anniversary-badge">6 месяцев вместе</div>
-        <h1>Даша</h1>
-        <div class="name">❤️ моя любимая ❤️</div>
+    <!-- Книга -->
+    <div class="book-wrap" id="bookWrap">
+        <div class="book" id="book">
 
-        <div class="confession-box">
-            <div class="confession-placeholder" id="confessionPlaceholder">
-                Здесь будет твоё признание в любви...<br>
-                <small style="color: #556677;">(открой файл и впиши текст вместо этого блока)</small>
+            <!-- ===== РАЗВОРОТ 1: титул + признание ===== -->
+            <div class="page left" data-spread="0">
+                <div class="page-inner">
+                    <div class="title-badge">6 месяцев вместе</div>
+                    <div class="title-name">Даша</div>
+                    <div class="title-sub">моя любимая ❤️<br>история наших первых моментов</div>
+                    <div class="title-heart">💗</div>
+                </div>
+                <div class="page-num">1</div>
             </div>
-            <!--
-            <div class="confession-text">
-Даша, за эти полгода я понял...
+
+            <div class="page right" data-spread="0">
+                <div class="page-inner">
+                    <div class="story-head">Признание</div>
+                    <div class="confession-placeholder" id="confessionPlaceholder">
+                        Здесь будет твоё признание в любви...<br>
+                        (открой файл и впиши текст вместо этого блока)
+                    </div>
+                    <!--
+                    <div class="confession-text">Даша, за эти полгода я понял...</div>
+                    -->
+                </div>
+                <div class="page-num">2</div>
             </div>
-            -->
-        </div>
 
-        <div class="divider"></div>
-
-        <!-- ======= БЛОКИ С ИСТОРИЯМИ ======= -->
-        <div class="blocks-section" id="blocksSection">
-            <div class="blocks-title">Наши первые моменты</div>
-
-            <div class="block">
-                <button class="block-btn" onclick="toggleBlock(this)">
-                    <span>Первые объятия</span>
-                    <span class="block-arrow">▼</span>
-                </button>
-                <div class="block-content"><div><div class="block-content-inner">Первый раз, когда ты меня обняла, я помню хорошо. Помню, как после прогулки я бежал на твой этаж, а ты бежала за мной. Когда мы добежали и ты уже собиралась пойти домой — вдруг обняла меня. Я был в шоке. Помню, как спускался по лестнице, потом шел домой, и все это время в голове было несколько мыслей:
+            <!-- ===== РАЗВОРОТ 2: объятия + рука ===== -->
+            <div class="page left" data-spread="1">
+                <div class="page-inner">
+                    <div class="story-head">Первый момент</div>
+                    <div class="story-title">Первые объятия</div>
+                    <div class="story-flourish"></div>
+                    <div class="story-text">Первый раз, когда ты меня обняла, я помню хорошо. Помню, как после прогулки я бежал на твой этаж, а ты бежала за мной. Когда мы добежали и ты уже собиралась пойти домой — вдруг обняла меня. Я был в шоке. Помню, как спускался по лестнице, потом шел домой, и все это время в голове было несколько мыслей:
 
 1. Почему она так сделала?
 2. Меня только что обняла девушка, которая мне нравится с 5 класса.
@@ -274,27 +367,32 @@
 Небольшое откровение: до тебя я еще ни с кем не обнимался, а тем более меня никто не обнимал первым.
 И тут появляешься ты — девушка, которая нравится мне с 5 класса, и обнимаешь меня на прощание.
 
-Это был один из моих самых счастливых дней.</div></div></div>
+Это был один из моих самых счастливых дней.</div>
+                </div>
+                <div class="page-num">3</div>
             </div>
 
-            <div class="block">
-                <button class="block-btn" onclick="toggleBlock(this)">
-                    <span>Первый раз взял за руку</span>
-                    <span class="block-arrow">▼</span>
-                </button>
-                <div class="block-content"><div><div class="block-content-inner">Солнышко,
+            <div class="page right" data-spread="1">
+                <div class="page-inner">
+                    <div class="story-head">Второй момент</div>
+                    <div class="story-title">Первый раз взял за руку</div>
+                    <div class="story-flourish"></div>
+                    <div class="story-text">Солнышко,
 
 Когда я первый раз взял тебя за руку, я уже был в тебя влюблен. И именно этот момент дал мне понять, насколько сильно.
 
-Я так волновался в тот момент, что, когда пришел домой, был очень счастлив.</div></div></div>
+Я так волновался в тот момент, что, когда пришел домой, был очень счастлив.</div>
+                </div>
+                <div class="page-num">4</div>
             </div>
 
-            <div class="block">
-                <button class="block-btn" onclick="toggleBlock(this)">
-                    <span>Когда мы начали встречаться</span>
-                    <span class="block-arrow">▼</span>
-                </button>
-                <div class="block-content"><div><div class="block-content-inner">11 июня
+            <!-- ===== РАЗВОРОТ 3: 11 июня + щёка ===== -->
+            <div class="page left" data-spread="2">
+                <div class="page-inner">
+                    <div class="story-head">Третий момент</div>
+                    <div class="story-title">Когда мы начали встречаться</div>
+                    <div class="story-flourish"></div>
+                    <div class="story-text">11 июня
 
 Тот день, когда мы начали встречаться, я помню очень хорошо. Помнишь, утром, когда мы с тобой разговаривали по телефону, я сказал, что ты для меня больше, чем просто подруга. Потом мы пошли гулять, попали под дождь. А вечером мы уже встречались.
 
@@ -302,103 +400,148 @@
 
 11 июня. Этот день стал для меня самым главным праздником.
 
-Я очень сильно тебя люблю.</div></div></div>
+Я очень сильно тебя люблю.</div>
+                </div>
+                <div class="page-num">5</div>
             </div>
 
-            <div class="block">
-                <button class="block-btn" onclick="toggleBlock(this)">
-                    <span>Первый раз поцеловал в щёку</span>
-                    <span class="block-arrow">▼</span>
-                </button>
-                <div class="block-content"><div><div class="block-content-inner">
-Здесь будет текст про первый поцелуй в щёку...
-                </div></div></div>
+            <div class="page right" data-spread="2">
+                <div class="page-inner">
+                    <div class="story-head">Четвёртый момент</div>
+                    <div class="story-title">Первый раз поцеловал в щёку</div>
+                    <div class="story-flourish"></div>
+                    <div class="story-text">Здесь будет текст про первый поцелуй в щёку...</div>
+                </div>
+                <div class="page-num">6</div>
             </div>
 
-            <div class="block">
-                <button class="block-btn" onclick="toggleBlock(this)">
-                    <span>Первый поцелуй</span>
-                    <span class="block-arrow">▼</span>
-                </button>
-                <div class="block-content"><div><div class="block-content-inner">
-Здесь будет текст про наш первый настоящий поцелуй...
-                </div></div></div>
+            <!-- ===== РАЗВОРОТ 4: первый поцелуй + финал ===== -->
+            <div class="page left" data-spread="3">
+                <div class="page-inner">
+                    <div class="story-head">Пятый момент</div>
+                    <div class="story-title">Первый поцелуй</div>
+                    <div class="story-flourish"></div>
+                    <div class="story-text">Здесь будет текст про наш первый настоящий поцелуй...</div>
+                </div>
+                <div class="page-num">7</div>
             </div>
+
+            <div class="page right" data-spread="3">
+                <div class="page-inner">
+                    <div class="title-heart">💖</div>
+                    <div class="title-sub">Спасибо за эти полгода.<br>Люблю тебя, Даша.</div>
+                    <div class="title-badge" style="margin-top: 24px;">продолжение следует...</div>
+                </div>
+                <div class="page-num">8</div>
+            </div>
+
         </div>
 
-        <div class="divider"></div>
-
-        <div class="music-credit" id="musicCredit">
-            ♫ сейчас играет: <span>CUPSIZE — Велосипед</span>
+        <!-- Навигация -->
+        <div class="nav">
+            <button class="nav-btn" id="prevBtn" aria-label="Назад">‹</button>
+            <div class="nav-counter" id="counter">1 / 4</div>
+            <button class="nav-btn" id="nextBtn" aria-label="Вперёд">›</button>
         </div>
 
-        <button class="love-btn" onclick="createHeartBurst()">❤️</button>
+        <div class="music-credit">♫ <span>CUPSIZE — Велосипед</span></div>
     </div>
 
     <script>
-        // Фоновые сердечки
-        function initHearts() {
-            const bg = document.getElementById('heartsBg');
-            const hearts = ['❤️', '💕', '💗', '💖', '💘'];
-            for (let i = 0; i < 25; i++) {
-                const h = document.createElement('div');
-                h.className = 'heart-float';
-                h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                h.style.left = Math.random() * 100 + '%';
-                h.style.fontSize = (12 + Math.random() * 20) + 'px';
-                h.style.animationDuration = (8 + Math.random() * 12) + 's';
-                h.style.animationDelay = (Math.random() * 10) + 's';
-                bg.appendChild(h);
-            }
-        }
-        initHearts();
-
         const introScreen = document.getElementById('intro-screen');
-        const mainContent = document.getElementById('mainContent');
+        const bookWrap = document.getElementById('bookWrap');
         const music = document.getElementById('bgMusic');
         const startBtn = document.getElementById('startBtn');
 
         startBtn.addEventListener('click', function() {
             introScreen.classList.add('hidden');
-            mainContent.classList.add('visible');
+            bookWrap.classList.add('visible');
             music.play().catch(function(e) {
                 console.log('Аудио не запустилось:', e);
             });
         });
 
-        // Переключатель блоков
-        function toggleBlock(btn) {
-            const block = btn.closest('.block');
-            block.classList.toggle('open');
-        }
+        // ===== Логика перелистывания =====
+        const pages = Array.from(document.querySelectorAll('.page'));
+        const spreads = 4; // 8 страниц / 2
+        let current = 0;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('counter');
+        const isMobile = () => window.matchMedia('(max-width: 640px)').matches;
 
-        // Взрыв сердечек
-        function createHeartBurst() {
-            const hearts = ['❤️', '💕', '💖', '💗', '💘', '🌹'];
-            for (let i = 0; i < 15; i++) {
-                const h = document.createElement('div');
-                h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                h.style.position = 'fixed';
-                h.style.left = '50%';
-                h.style.top = '50%';
-                h.style.fontSize = (20 + Math.random() * 30) + 'px';
-                h.style.pointerEvents = 'none';
-                h.style.zIndex = '999';
-                h.style.transition = 'all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                document.body.appendChild(h);
+        function render() {
+            pages.forEach(p => {
+                p.classList.remove('hidden-mobile', 'turn-out');
+            });
 
-                const angle = Math.random() * Math.PI * 2;
-                const dist = 100 + Math.random() * 300;
-                const x = Math.cos(angle) * dist;
-                const y = Math.sin(angle) * dist;
-
-                requestAnimationFrame(function() {
-                    h.style.transform = `translate(${x}px, ${y}px) scale(0)`;
-                    h.style.opacity = '0';
+            if (isMobile()) {
+                // На мобилке одна страница = один индекс (0..7)
+                const total = pages.length;
+                const idx = Math.min(current, total - 1);
+                pages.forEach((p, i) => {
+                    if (i !== idx) p.classList.add('hidden-mobile');
                 });
-                setTimeout(() => h.remove(), 1600);
+                counter.textContent = (idx + 1) + ' / ' + total;
+                prevBtn.disabled = idx === 0;
+                nextBtn.disabled = idx === total - 1;
+            } else {
+                // На десктопе разворот = две страницы
+                const leftIdx = current * 2;
+                const rightIdx = current * 2 + 1;
+                pages.forEach((p, i) => {
+                    if (i !== leftIdx && i !== rightIdx) p.classList.add('turn-out');
+                });
+                counter.textContent = (current + 1) + ' / ' + spreads;
+                prevBtn.disabled = current === 0;
+                nextBtn.disabled = current === spreads - 1;
             }
         }
+
+        function next() {
+            if (isMobile()) {
+                if (current < pages.length - 1) { current++; render(); }
+            } else {
+                if (current < spreads - 1) { current++; render(); }
+            }
+        }
+        function prev() {
+            if (current > 0) { current--; render(); }
+        }
+
+        nextBtn.addEventListener('click', next);
+        prevBtn.addEventListener('click', prev);
+
+        // Стрелки клавиатуры
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft') prev();
+        });
+
+        // Свайпы на мобилке
+        let touchStartX = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        document.addEventListener('touchend', function(e) {
+            const dx = e.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(dx) > 50) {
+                if (dx < 0) next(); else prev();
+            }
+        }, { passive: true });
+
+        // Пересчёт при смене размера окна
+        window.addEventListener('resize', function() {
+            if (isMobile()) {
+                // при переходе в мобильный режим ставим индекс первой видимой страницы
+                current = Math.min(current * 2, pages.length - 1);
+            } else {
+                current = Math.min(Math.floor(current / 2), spreads - 1);
+            }
+            render();
+        });
+
+        render();
     </script>
 </body>
 </html>
