@@ -35,7 +35,6 @@
             padding: 12px;
         }
 
-        /* ---------- Экран входа ---------- */
         #intro-screen {
             position: fixed; inset: 0;
             background: linear-gradient(135deg, #ffe4ec, #ffc2d4);
@@ -76,7 +75,6 @@
         }
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
 
-        /* ---------- Обёртка ---------- */
         .book-wrap {
             display: flex;
             flex-direction: column;
@@ -90,7 +88,6 @@
         }
         .book-wrap.visible { opacity: 1; transform: translateY(0); }
 
-        /* ---------- Одна страница ---------- */
         .book {
             position: relative;
             width: min(94vw, 94vh, 700px);
@@ -158,7 +155,6 @@
             flex-shrink: 0;
         }
 
-        /* ---------- Титул ---------- */
         .title-badge {
             display: inline-block;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -190,7 +186,6 @@
             animation: beat 2s ease-in-out infinite;
         }
 
-        /* ---------- Текст ---------- */
         .confession-placeholder {
             font-style: italic;
             color: var(--rose-text);
@@ -226,7 +221,6 @@
             margin: 0 auto 14px;
         }
 
-        /* ---------- Навигация ---------- */
         .nav {
             display: flex;
             align-items: center;
@@ -275,7 +269,6 @@
         }
         .music-credit span { color: var(--pink-dark); }
 
-        /* Ландшафт на телефоне — компактнее */
         @media (max-height: 500px) and (orientation: landscape) {
             .book {
                 width: min(94vh, 94vw, 420px);
@@ -399,7 +392,12 @@
                     <div class="story-head">Пятый момент</div>
                     <div class="story-title">Первый поцелуй</div>
                     <div class="story-flourish"></div>
-                    <div class="story-text">Здесь будет текст про наш первый настоящий поцелуй...</div>
+                    <div class="story-text">Первый поцелуй в губы
+
+Коть, напоследок хочу вспомнить этот прекрасный момент в наших отношениях.
+Наш с тобой первый поцелуй я до сих пор вспоминаю с улыбкой. Не потому что смешно, а потому что очень счастлив.
+Отлично помню день, когда мы поцеловались, 11 октября. Помню, как весь день тогда волновался, думал, стоит ли это делать, и только с подначек Вани я это сделал. Может возникнуть вопрос, почему я так долго тянул? Честно, не знаю. То ли боялся, то ли не мог себя побороть. Но по итогу сделал это. Очень тебя люблю. ❤️
+P.S. не мастер писать долгие тексты, но попытался. Надеюсь, тебе понравилось.</div>
                 </div>
                 <div class="page-num">7 / 8</div>
             </div>
