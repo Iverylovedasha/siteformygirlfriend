@@ -20,7 +20,7 @@
 
         html, body {
             height: 100%;
-            overflow: hidden; /* убираем прокрутку страницы на десктопе */
+            overflow: hidden;
         }
 
         body {
@@ -36,7 +36,6 @@
             padding: 2vh 2vw;
         }
 
-        /* ---------- Экран входа ---------- */
         #intro-screen {
             position: fixed; inset: 0;
             background: linear-gradient(135deg, #ffe4ec, #ffc2d4);
@@ -73,7 +72,6 @@
         }
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
 
-        /* ---------- Обёртка книги ---------- */
         .book-wrap {
             position: relative;
             display: flex;
@@ -91,7 +89,6 @@
         .book {
             position: relative;
             display: flex;
-            /* Квадратные страницы, книга вписывается в экран по высоте и ширине */
             width: min(96vw, calc(92vh - 110px) * 2);
             height: min(92vh - 110px, 48vw);
             max-width: 1200px;
@@ -105,7 +102,6 @@
             filter: drop-shadow(0 30px 60px rgba(200, 100, 140, 0.38));
         }
 
-        /* Корешок */
         .book::before {
             content: '';
             position: absolute;
@@ -118,7 +114,6 @@
             pointer-events: none;
         }
 
-        /* ---------- Страницы ---------- */
         .page {
             position: relative;
             width: 50%;
@@ -178,7 +173,6 @@
             min-height: 0;
         }
 
-        /* ---------- Титул ---------- */
         .title-badge {
             display: inline-block;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -210,7 +204,6 @@
             animation: beat 2s ease-in-out infinite;
         }
 
-        /* ---------- Признание ---------- */
         .confession-placeholder {
             font-style: italic;
             color: var(--rose-text);
@@ -226,7 +219,6 @@
             text-align: left;
         }
 
-        /* ---------- Страницы историй ---------- */
         .story-head {
             font-family: 'Segoe UI', Arial, sans-serif;
             font-size: clamp(0.6rem, 0.85vw, 0.8rem);
@@ -254,7 +246,6 @@
             margin: 0 auto 14px;
         }
 
-        /* ---------- Навигация ---------- */
         .nav {
             display: flex;
             align-items: center;
@@ -306,7 +297,6 @@
             transform: scale(0.97);
         }
 
-        /* ---------- Мобильная версия ---------- */
         @media (max-width: 700px) {
             html, body { overflow: auto; height: auto; min-height: 100%; }
             body { padding: 20px 12px; justify-content: flex-start; }
@@ -434,7 +424,9 @@
                     <div class="story-head">Четвёртый момент</div>
                     <div class="story-title">Первый раз поцеловал в щёку</div>
                     <div class="story-flourish"></div>
-                    <div class="story-text">Здесь будет текст про первый поцелуй в щёку...</div>
+                    <div class="story-text">Первый поцелуй в щёку
+
+Солнышко, к этому моменту я шёл долго, потому что боялся, думал, что тебе не понравится, боялся, что наши отношения — это все шутка. В какие-то моменты я очень хотел тебя поцеловать, но не мог перебороть свой страх. И вот 11 сентября, когда я пошёл тебя провожать, до последнего момента тянул, когда ты уже ушла в подъезд, пошёл за тобой. И поцеловал в щёку. Очень люблю вспоминать этот момент.</div>
                 </div>
                 <div class="page-num">6</div>
             </div>
@@ -453,7 +445,7 @@
             <div class="page right" data-spread="3">
                 <div class="page-inner">
                     <div class="title-heart">💖</div>
-                    <div class="title-sub">Спасибо за эти полгода.<br>Люблю тебя, Даша.</div>
+                    <div class="title-sub">Спасибо за эти полгода.<br>Люблю тебя, коть</div>
                     <div class="title-badge" style="margin-top: 20px;">продолжение следует...</div>
                 </div>
                 <div class="page-num">8</div>
